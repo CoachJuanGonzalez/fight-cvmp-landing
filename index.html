@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIGHT CVMP - Structure Your Mind. Build Your Body.</title>
+    <title>FIGHT CVMP - Build the Body. Build the Mind. Build the Standard.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -19,6 +19,7 @@
             background-color: #000000;
             color: #ffffff;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         /* Hero Section */
@@ -41,7 +42,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
+            background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.9) 100%);
             z-index: 1;
         }
 
@@ -109,7 +110,7 @@
         }
 
         .hero-title {
-            font-size: 72px;
+            font-size: 64px;
             font-weight: 900;
             line-height: 1.2;
             margin-bottom: 1.5rem;
@@ -117,301 +118,209 @@
         }
 
         .hero-subtitle {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 400;
-            font-style: italic;
             color: #e0e0e0;
-            margin-bottom: 3rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        }
-
-        /* Waitlist Section */
-        .waitlist {
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-            padding: 6rem 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .waitlist-box {
-            background: rgba(34, 34, 34, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 3rem;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            animation: fadeInUp 1s ease-out 0.3s both;
-        }
-
-        .waitlist-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .waitlist-subtitle {
-            font-size: 18px;
-            color: #cccccc;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
             margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            line-height: 1.7;
         }
 
-        .form-input {
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 6px;
+        .hero-tagline {
+            font-size: 20px;
+            font-weight: 600;
             color: #ffffff;
-            font-size: 16px;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.3s ease;
+            margin-bottom: 2.5rem;
+            letter-spacing: 2px;
         }
 
-        .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #8B0000;
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .form-button {
-            width: 100%;
-            padding: 1.2rem;
+        .cta-button {
+            display: inline-block;
+            padding: 1.3rem 3rem;
             background: #8B0000;
-            border: none;
-            border-radius: 6px;
             color: #ffffff;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
+            text-decoration: none;
+            border-radius: 6px;
             letter-spacing: 1px;
-            cursor: pointer;
-            text-transform: uppercase;
             transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(139, 0, 0, 0.4);
+            margin-bottom: 1rem;
         }
 
-        .form-button:hover {
+        .cta-button:hover {
             background: #660000;
             transform: translateY(-2px);
             box-shadow: 0 6px 30px rgba(139, 0, 0, 0.6);
         }
 
-        .form-security {
-            text-align: center;
-            font-size: 12px;
-            color: #888888;
-            margin-top: 1rem;
-        }
-
-        /* Motivational Section */
-        .motivational {
-            background: #000000;
-            padding: 6rem 2rem;
-            text-align: center;
-        }
-
-        .motivational-title {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: fadeInUp 1s ease-out 0.5s both;
-        }
-
-        .motivational-desc {
-            font-size: 20px;
+        .cta-small-text {
+            font-size: 13px;
             color: #cccccc;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: fadeInUp 1s ease-out 0.7s both;
+            font-style: italic;
         }
 
-        /* Three Pillars Section */
-        .pillars {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        /* Content Sections */
+        .section {
             padding: 6rem 2rem;
-        }
-
-        .pillars-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .pillar-card {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 2.5rem;
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s ease-out both;
+        .section-dark {
+            background: #000000;
         }
 
-        .pillar-card:nth-child(1) {
-            animation-delay: 0.2s;
+        .section-darker {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
         }
 
-        .pillar-card:nth-child(2) {
-            animation-delay: 0.4s;
-        }
-
-        .pillar-card:nth-child(3) {
-            animation-delay: 0.6s;
-        }
-
-        .pillar-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(139, 0, 0, 0.5);
-            box-shadow: 0 10px 40px rgba(139, 0, 0, 0.2);
-        }
-
-        .pillar-title {
-            font-size: 24px;
+        .section-title {
+            font-size: 42px;
             font-weight: 700;
-            color: #FF0000;
-            margin-bottom: 1.5rem;
-            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            line-height: 1.3;
         }
 
-        .pillar-list {
-            list-style: none;
-            font-size: 16px;
+        .section-text {
+            font-size: 20px;
             line-height: 1.8;
             color: #e0e0e0;
+            margin-bottom: 1.5rem;
         }
 
-        .pillar-list li {
-            margin-bottom: 0.8rem;
+        .section-text strong {
+            color: #ffffff;
+            font-weight: 700;
         }
 
-        /* Bottom Section */
-        .bottom {
+        .bullet-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .bullet-list li {
+            font-size: 20px;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
             position: relative;
-            min-height: 70vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        }
+
+        .bullet-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #8B0000;
+            font-weight: 900;
+            font-size: 24px;
+        }
+
+        .highlight-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 2rem 0;
+            line-height: 1.5;
+        }
+
+        .tagline-block {
             text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(139, 0, 0, 0.1);
+            border-left: 4px solid #8B0000;
+            margin: 3rem 0;
+        }
+
+        .tagline-block p {
+            font-size: 24px;
+            line-height: 1.8;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Women Section */
+        .women-section {
+            position: relative;
             padding: 6rem 2rem;
             overflow: hidden;
         }
 
-        .bottom::before {
+        .women-section::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.95) 100%);
-            z-index: 1;
-        }
-
-        .bottom-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2px;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.95) 100%);
             z-index: 0;
         }
 
-        .bottom-bg-item {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            filter: brightness(0.5) contrast(1.3);
-            transition: filter 0.5s ease;
-        }
-
-        .bottom-bg-item:hover {
-            filter: brightness(0.7) contrast(1.4);
-        }
-
-        .bottom-bg-item:nth-child(1) {
-            background-image: url('https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=800&q=80');
-        }
-
-        .bottom-bg-item:nth-child(2) {
-            background-image: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80');
-        }
-
-        .bottom-content {
+        .women-content {
             position: relative;
-            z-index: 2;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            background: #000000;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .final-cta-content {
             max-width: 900px;
-            animation: fadeInUp 1s ease-out 0.8s both;
+            margin: 0 auto;
         }
 
-        .bottom-title {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        .benefits-list {
+            text-align: left;
+            max-width: 600px;
+            margin: 2rem auto 3rem;
         }
 
-        .bottom-subtitle {
-            font-size: 22px;
-            color: #e0e0e0;
-            line-height: 1.6;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        .closing-text {
+            font-size: 18px;
+            color: #cccccc;
+            margin-top: 1.5rem;
+            font-style: italic;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 42px;
+                font-size: 38px;
             }
 
             .hero-subtitle {
                 font-size: 18px;
             }
 
+            .hero-tagline {
+                font-size: 16px;
+            }
+
             .logo {
                 font-size: 32px;
             }
 
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .pillars-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .motivational-title {
+            .section-title {
                 font-size: 32px;
             }
 
-            .bottom-title {
-                font-size: 32px;
+            .section-text {
+                font-size: 18px;
             }
 
-            .bottom-subtitle {
+            .highlight-text {
+                font-size: 22px;
+            }
+
+            .bullet-list li {
                 font-size: 18px;
             }
 
@@ -419,12 +328,9 @@
                 grid-template-columns: 1fr;
             }
 
-            .bottom-bg {
-                grid-template-columns: 1fr;
-            }
-
-            .waitlist-box {
-                padding: 2rem;
+            .cta-button {
+                padding: 1.1rem 2rem;
+                font-size: 16px;
             }
         }
     </style>
@@ -439,80 +345,162 @@
         </div>
         <div class="hero-content">
             <div class="logo">FIGHT CVMP</div>
-            <h1 class="hero-title">Structure Your Mind. Build Your Body. Expand Your Capacity.</h1>
-            <p class="hero-subtitle">For fighters, athletes, entrepreneurs, and high-agency women & men who refuse regression.</p>
+            <h1 class="hero-title">Build the Body. Build the Mind. Build the Standard.</h1>
+            <p class="hero-subtitle">A private training platform for fighters, athletes, and high-level humans who refuse average.</p>
+            <p class="hero-tagline">Strength. Structure. Discipline. Direction.</p>
+            <a href="#waitlist" class="cta-button">→ Join the Private Waitlist</a>
+            <p class="cta-small-text">Founding members get lifetime preferred pricing.</p>
         </div>
     </section>
 
-    <!-- Waitlist Section -->
-    <section class="waitlist">
-        <div class="waitlist-box">
-            <h2 class="waitlist-title">Join the Founding Waitlist</h2>
-            <p class="waitlist-subtitle">Private founding access opening soon.</p>
-            <form action="#" method="post">
-                <div class="form-row">
-                    <input type="text" class="form-input" placeholder="Name" required>
-                    <input type="email" class="form-input" placeholder="Email" required>
-                </div>
-                <button type="submit" class="form-button">Request Founding Access</button>
-                <p class="form-security">100% Secure. No Spam Ever.</p>
-            </form>
+    <!-- Section 1: What This Is -->
+    <section class="section section-dark">
+        <p class="section-text">Most people train for aesthetics.<br>
+        Some train for performance.<br>
+        <strong>Very few train for identity.</strong></p>
+
+        <p class="highlight-text">FIGHT CVMP is not a random fitness program.</p>
+
+        <p class="section-text">It is structured training for:</p>
+
+        <ul class="bullet-list">
+            <li>Physique</li>
+            <li>Power</li>
+            <li>Nervous system control</li>
+            <li>Discipline</li>
+            <li>Confidence</li>
+            <li>Real-world strength</li>
+        </ul>
+
+        <p class="highlight-text">You don't just look different.</p>
+        <p class="highlight-text">You operate different.</p>
+    </section>
+
+    <!-- Section 2: Who It's For -->
+    <section class="section section-darker">
+        <h2 class="section-title">This is for:</h2>
+
+        <ul class="bullet-list">
+            <li>Fighters who want real structure</li>
+            <li>Men who want presence and power</li>
+            <li>Women 20–30 who want strength without losing femininity</li>
+            <li>People who want direction instead of random workouts</li>
+            <li>Anyone who wants to stop leaking potential</li>
+        </ul>
+
+        <div class="tagline-block">
+            <p>If you want chaos, this isn't for you.</p>
+            <p><strong>If you want standards, you'll love it.</strong></p>
         </div>
     </section>
 
-    <!-- Motivational Section -->
-    <section class="motivational">
-        <h2 class="motivational-title">Most people chase motivation. We train composure.</h2>
-        <p class="motivational-desc">FIGHT CVMP is not a course. It's a performance platform built for those with high standards.</p>
+    <!-- Section 3: What You Get -->
+    <section class="section section-dark">
+        <h2 class="section-title">Inside FIGHT CVMP:</h2>
+
+        <ul class="bullet-list">
+            <li>Structured strength & physique programs</li>
+            <li>Performance-based training blocks</li>
+            <li>Nervous system control protocols</li>
+            <li>Confidence + composure training</li>
+            <li>Community of disciplined people</li>
+            <li>Exclusive challenges</li>
+            <li>The Center Within (premium add-on program)</li>
+        </ul>
+
+        <div class="tagline-block">
+            <p>No guesswork.</p>
+            <p>No influencer fluff.</p>
+            <p>No random PDFs.</p>
+            <p><strong>Just structure.</strong></p>
+        </div>
     </section>
 
-    <!-- Three Pillars Section -->
-    <section class="pillars">
-        <div class="pillars-grid">
-            <div class="pillar-card">
-                <h3 class="pillar-title">STATE CONTROL</h3>
-                <ul class="pillar-list">
-                    <li>- Regulate your nervous system.</li>
-                    <li>- Master activation & composure.</li>
-                </ul>
+    <!-- Section 4: For Women -->
+    <section class="women-section">
+        <div class="women-content">
+            <h2 class="section-title">You don't need "soft" fitness.</h2>
+
+            <p class="section-text">You need strength that translates into:</p>
+
+            <ul class="bullet-list">
+                <li>Confidence</li>
+                <li>Shape</li>
+                <li>Posture</li>
+                <li>Presence</li>
+                <li>Energy</li>
+            </ul>
+
+            <p class="highlight-text">You won't bulk up.</p>
+
+            <p class="section-text">You'll tighten.<br>
+            You'll strengthen.<br>
+            You'll feel powerful.</p>
+
+            <div class="tagline-block">
+                <p>Strong is not masculine.</p>
+                <p><strong>Strong is magnetic.</strong></p>
             </div>
-            <div class="pillar-card">
-                <h3 class="pillar-title">STRUCTURE</h3>
-                <ul class="pillar-list">
-                    <li>- Install protocols that hold.</li>
-                    <li>- Reinforce habits and standards.</li>
-                </ul>
-            </div>
-            <div class="pillar-card">
-                <h3 class="pillar-title">CAPACITY EXPANSION</h3>
-                <ul class="pillar-list">
-                    <li>- Train baseline-raising behavior.</li>
-                    <li>- Become resilient under pressure.</li>
-                </ul>
-            </div>
         </div>
     </section>
 
-    <!-- Bottom Section -->
-    <section class="bottom">
-        <div class="bottom-bg">
-            <div class="bottom-bg-item" role="img" aria-label="Woman lifting weights in strength pose"></div>
-            <div class="bottom-bg-item" role="img" aria-label="Woman in leadership action pose"></div>
+    <!-- Section 5: Why Now -->
+    <section class="section section-darker">
+        <h2 class="section-title">You don't need another year of:</h2>
+
+        <ul class="bullet-list">
+            <li>"I'll start Monday"</li>
+            <li>Random YouTube workouts</li>
+            <li>Emotional eating cycles</li>
+            <li>Inconsistent discipline</li>
+            <li>Watching others level up</li>
+        </ul>
+
+        <p class="highlight-text">You need structure.</p>
+
+        <div class="tagline-block">
+            <p>Structure builds trust.</p>
+            <p>Trust builds power.</p>
+            <p><strong>Power builds freedom.</strong></p>
         </div>
-        <div class="bottom-content">
-            <h2 class="bottom-title">Built For High-Agency Women Too.</h2>
-            <p class="bottom-subtitle">Strength is not masculine. Discipline is not gendered. Capacity is universal.</p>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta" id="waitlist">
+        <div class="final-cta-content">
+            <h2 class="section-title">We're opening with a limited founding group.</h2>
+
+            <p class="section-text">Early members get:</p>
+
+            <ul class="bullet-list benefits-list">
+                <li>Lifetime lower rate</li>
+                <li>Direct access to program drops</li>
+                <li>Early access to new challenges</li>
+                <li>Priority access to future live events</li>
+            </ul>
+
+            <p class="highlight-text">Spots will be capped.</p>
+
+            <a href="#" class="cta-button">→ Join the Private Waitlist</a>
+
+            <p class="closing-text">This is not for everyone.<br>
+            But if you feel it — you already know.</p>
         </div>
     </section>
 
     <script>
-        // Smooth form button interaction
-        document.querySelector('.form-button').addEventListener('click', function(e) {
-            const form = this.closest('form');
-            if (!form.checkValidity()) {
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                form.reportValidity();
-            }
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
 
         // Intersection Observer for scroll animations
