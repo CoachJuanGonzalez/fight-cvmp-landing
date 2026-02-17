@@ -842,11 +842,10 @@
 
     <script>
         // ========================================
-        // AIRTABLE CONFIGURATION
+        // API CONFIGURATION
         // ========================================
-        // Your Airtable form URL components
-        const AIRTABLE_BASE_ID = 'appzHfJJ3mm9MvOyr';
-        const AIRTABLE_FORM_ID = 'pagu1KzL63b2oz8Bq';
+        // Serverless function endpoint (secure - no API keys exposed!)
+        const API_ENDPOINT = '/api/submit-waitlist';
 
         // ========================================
         // MODAL FUNCTIONALITY
@@ -920,33 +919,24 @@
             submitBtn.textContent = 'Submitting...';
 
             try {
-                // Build Airtable prefilled form URL
-                // This is the most reliable way to submit to Airtable forms
-                const params = new URLSearchParams();
-                params.append('prefill_first_name', firstName);
-                params.append('prefill_last_name', lastName);
-                params.append('prefill_email', email);
-                if (phone) {
-                    params.append('prefill_phone', phone);
-                }
-                // Note: Make sure you have a 'source' field in Airtable for tracking
-                // If you don't have this field, it will be ignored (won't break submission)
-                params.append('prefill_source', 'fightcvmplandingpage');
+                // Call secure serverless function (no API keys exposed!)
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        phone: phone || ''
+                    })
+                });
 
-                // Auto-submit by adding hide parameter
-                params.append('hide', 'first_name,last_name,email,phone,source');
+                const data = await response.json();
 
-                const airtableUrl = `https://airtable.com/${AIRTABLE_BASE_ID}/${AIRTABLE_FORM_ID}?${params.toString()}`;
-
-                // Open in hidden iframe to auto-submit
-                const iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                iframe.src = airtableUrl;
-                document.body.appendChild(iframe);
-
-                // Wait a moment for submission
-                setTimeout(() => {
-                    document.body.removeChild(iframe);
+                if (response.ok && data.success) {
+                    console.log('Success:', data);
                     showMessage('🎉 Welcome to the waitlist! Check your email for next steps.', 'success');
                     waitlistForm.reset();
 
@@ -954,18 +944,19 @@
                     setTimeout(() => {
                         closeModal();
                     }, 3000);
-                }, 1500);
+                } else {
+                    console.error('Submission error:', data);
+                    showMessage(data.error || 'Something went wrong. Please try again or contact support.', 'error');
+                }
 
             } catch (error) {
                 // Network or other error
                 console.error('Submission error:', error);
                 showMessage('Network error. Please check your connection and try again.', 'error');
             } finally {
-                // Re-enable submit button after a delay
-                setTimeout(() => {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Join Waitlist';
-                }, 2000);
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Join Waitlist';
             }
         });
 
