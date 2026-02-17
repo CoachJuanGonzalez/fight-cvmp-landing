@@ -301,12 +301,15 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
             animation: fadeIn 0.3s ease;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .modal.active {
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 1rem;
         }
 
         @keyframes fadeIn {
@@ -318,12 +321,15 @@
             background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
             border: 1px solid rgba(139, 0, 0, 0.3);
             border-radius: 12px;
-            padding: 3rem;
+            padding: 2.5rem 2rem;
             max-width: 500px;
-            width: 90%;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 20px 60px rgba(139, 0, 0, 0.3);
             position: relative;
             animation: slideUp 0.3s ease;
+            margin: auto;
         }
 
         @keyframes slideUp {
@@ -481,20 +487,24 @@
                 font-size: 32px;
             }
 
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
             .section-title {
-                font-size: 32px;
+                font-size: 28px;
             }
 
             .section-text {
-                font-size: 18px;
+                font-size: 16px;
             }
 
             .highlight-text {
-                font-size: 22px;
+                font-size: 20px;
             }
 
             .bullet-list li {
-                font-size: 18px;
+                font-size: 16px;
             }
 
             .hero-bg {
@@ -504,6 +514,97 @@
             .cta-button {
                 padding: 1.1rem 2rem;
                 font-size: 16px;
+            }
+
+            .modal {
+                padding: 0.5rem;
+                align-items: flex-start;
+            }
+
+            .modal-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem auto;
+                max-height: 95vh;
+                width: 95%;
+            }
+
+            .modal-title {
+                font-size: 26px;
+            }
+
+            .modal-subtitle {
+                font-size: 14px;
+            }
+
+            .form-control {
+                font-size: 16px;
+                padding: 0.9rem;
+            }
+
+            .tagline-block {
+                padding: 3rem 1.5rem;
+            }
+
+            .tagline-block p {
+                font-size: 20px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .logo {
+                font-size: 28px;
+                letter-spacing: 2px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .modal-content {
+                padding: 1.5rem 1rem;
+            }
+
+            .modal-title {
+                font-size: 22px;
+            }
+
+            .form-group {
+                margin-bottom: 1.2rem;
+            }
+        }
+
+        /* Landscape mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .modal {
+                align-items: flex-start;
+            }
+
+            .modal-content {
+                margin: 1rem auto;
+            }
+        }
+
+        /* Large desktop */
+        @media (min-width: 1920px) {
+            .section {
+                max-width: 1400px;
+            }
+
+            .hero-title {
+                font-size: 80px;
+            }
+
+            .section-title {
+                font-size: 48px;
             }
         }
     </style>
@@ -679,6 +780,7 @@
                         name="firstName"
                         class="form-control"
                         placeholder="Enter your first name"
+                        autocomplete="given-name"
                         required
                     >
                 </div>
@@ -693,6 +795,7 @@
                         name="lastName"
                         class="form-control"
                         placeholder="Enter your last name"
+                        autocomplete="family-name"
                         required
                     >
                 </div>
@@ -707,6 +810,7 @@
                         name="email"
                         class="form-control"
                         placeholder="your.email@example.com"
+                        autocomplete="email"
                         required
                     >
                 </div>
@@ -720,7 +824,10 @@
                         id="phone"
                         name="phone"
                         class="form-control"
-                        placeholder="+1 (555) 123-4567"
+                        placeholder="e.g., +1 555-123-4567"
+                        autocomplete="tel"
+                        pattern="[\d\s\-\+\(\)\.]*"
+                        title="Please enter a valid phone number (international format accepted)"
                     >
                 </div>
 
@@ -769,7 +876,13 @@
 
         closeModalBtn.addEventListener('click', closeModal);
 
-        // Close modal when clicking outside
+        // Prevent modal content clicks from bubbling
+        const modalContent = document.querySelector('.modal-content');
+        modalContent.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // Close modal when clicking outside (on backdrop)
         modal.addEventListener('click', function(e) {
             if (e.target === modal) {
                 closeModal();
