@@ -290,6 +290,179 @@
             font-style: italic;
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(139, 0, 0, 0.3);
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 28px;
+            font-weight: 700;
+            color: #888888;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #ffffff;
+        }
+
+        .modal-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .modal-subtitle {
+            font-size: 16px;
+            color: #cccccc;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-label .required {
+            color: #8B0000;
+        }
+
+        .form-label .optional {
+            color: #888888;
+            font-weight: 400;
+            font-size: 12px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #8B0000;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: #8B0000;
+            border: none;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.4);
+        }
+
+        .submit-button:hover:not(:disabled) {
+            background: #660000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(139, 0, 0, 0.6);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            color: #00ff00;
+            display: block;
+        }
+
+        .form-message.error {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ff6b6b;
+            display: block;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-title {
@@ -481,19 +654,209 @@
 
             <p class="highlight-text">Spots will be capped.</p>
 
-            <a href="#" class="cta-button">→ Join the Private Waitlist</a>
+            <a href="#" class="cta-button" id="openModalBtn">→ Join the Private Waitlist</a>
 
             <p class="closing-text">This is not for everyone.<br>
             But if you feel it — you already know.</p>
         </div>
     </section>
 
+    <!-- Waitlist Modal -->
+    <div id="waitlistModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2 class="modal-title">Join the Founding Waitlist</h2>
+            <p class="modal-subtitle">Secure your spot and lock in lifetime preferred pricing.</p>
+
+            <form id="waitlistForm">
+                <div class="form-group">
+                    <label class="form-label" for="fullName">
+                        Full Name <span class="required">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        class="form-control"
+                        placeholder="Enter your full name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">
+                        Email <span class="required">*</span>
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="form-control"
+                        placeholder="your.email@example.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="phone">
+                        Phone <span class="optional">(optional)</span>
+                    </label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        class="form-control"
+                        placeholder="+1 (555) 123-4567"
+                    >
+                </div>
+
+                <button type="submit" class="submit-button" id="submitBtn">
+                    Join Waitlist
+                </button>
+
+                <div id="formMessage" class="form-message"></div>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // Smooth scroll for anchor links
+        // ========================================
+        // AIRTABLE CONFIGURATION
+        // ========================================
+        // Replace these with your actual Airtable credentials
+        const AIRTABLE_CONFIG = {
+            apiKey: 'YOUR_AIRTABLE_API_KEY', // Replace with your Airtable Personal Access Token
+            baseId: 'YOUR_BASE_ID', // Replace with your Airtable Base ID
+            tableName: 'Waitlist' // Replace with your table name
+        };
+
+        // ========================================
+        // MODAL FUNCTIONALITY
+        // ========================================
+        const modal = document.getElementById('waitlistModal');
+        const openModalBtns = document.querySelectorAll('.cta-button');
+        const closeModalBtn = document.getElementById('closeModal');
+        const waitlistForm = document.getElementById('waitlistForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formMessage = document.getElementById('formMessage');
+
+        // Open modal when any CTA button is clicked
+        openModalBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scroll
+            });
+        });
+
+        // Close modal
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scroll
+            waitlistForm.reset();
+            formMessage.style.display = 'none';
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // ========================================
+        // FORM SUBMISSION & AIRTABLE INTEGRATION
+        // ========================================
+        waitlistForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Get form data
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            // Basic validation
+            if (!fullName || !email) {
+                showMessage('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            try {
+                // Send to Airtable
+                const response = await fetch(`https://api.airtable.com/v0/${AIRTABLE_CONFIG.baseId}/${AIRTABLE_CONFIG.tableName}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${AIRTABLE_CONFIG.apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        fields: {
+                            'Full Name': fullName,
+                            'Email': email,
+                            'Phone': phone || '',
+                            'Joined Date': new Date().toISOString(),
+                            'Source': 'Landing Page'
+                        }
+                    })
+                });
+
+                if (response.ok) {
+                    // Success
+                    showMessage('🎉 Welcome to the waitlist! Check your email for next steps.', 'success');
+                    waitlistForm.reset();
+
+                    // Close modal after 3 seconds
+                    setTimeout(() => {
+                        closeModal();
+                    }, 3000);
+                } else {
+                    // Error from Airtable
+                    const errorData = await response.json();
+                    console.error('Airtable error:', errorData);
+                    showMessage('Something went wrong. Please try again or contact support.', 'error');
+                }
+            } catch (error) {
+                // Network or other error
+                console.error('Submission error:', error);
+                showMessage('Network error. Please check your connection and try again.', 'error');
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Join Waitlist';
+            }
+        });
+
+        // Show message helper
+        function showMessage(message, type) {
+            formMessage.textContent = message;
+            formMessage.className = `form-message ${type}`;
+            formMessage.style.display = 'block';
+        }
+
+        // ========================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS
+        // ========================================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#' || this.classList.contains('cta-button')) {
+                    return; // Let modal handler take over for CTA buttons
+                }
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const target = document.querySelector(href);
                 if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
@@ -503,7 +866,9 @@
             });
         });
 
-        // Intersection Observer for scroll animations
+        // ========================================
+        // INTERSECTION OBSERVER FOR ANIMATIONS
+        // ========================================
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
