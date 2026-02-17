@@ -842,11 +842,11 @@
 
     <script>
         // ========================================
-        // WEBHOOK CONFIGURATION
+        // AIRTABLE CONFIGURATION
         // ========================================
-        // Airtable Form share ID - extracted from your form URL
-        const AIRTABLE_SHARE_ID = 'pagu1KzL63b2oz8Bq';
-        const WEBHOOK_URL = `https://airtable.com/v0.3/view/${AIRTABLE_SHARE_ID}/submitSharedForm`;
+        // Your Airtable form URL components
+        const AIRTABLE_BASE_ID = 'appzHfJJ3mm9MvOyr';
+        const AIRTABLE_FORM_ID = 'pagu1KzL63b2oz8Bq';
 
         // ========================================
         // MODAL FUNCTIONALITY
@@ -920,29 +920,31 @@
             submitBtn.textContent = 'Submitting...';
 
             try {
-                // Prepare form data in Airtable's expected format
-                const formData = new URLSearchParams();
-                formData.append('First Name', firstName);
-                formData.append('Last Name', lastName);
-                formData.append('Email', email);
+                // Build Airtable prefilled form URL
+                // This is the most reliable way to submit to Airtable forms
+                const params = new URLSearchParams();
+                params.append('prefill_First Name', firstName);
+                params.append('prefill_Last Name', lastName);
+                params.append('prefill_Email', email);
                 if (phone) {
-                    formData.append('Phone', phone);
+                    params.append('prefill_Phone', phone);
                 }
-                // Add source field to track where the lead came from
-                formData.append('Source', 'fightcvmplandingpage');
+                params.append('prefill_Source', 'fightcvmplandingpage');
 
-                // Send to Airtable Form webhook
-                const response = await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: formData.toString(),
-                    mode: 'cors'
-                });
+                // Auto-submit by adding hide parameter
+                params.append('hide', 'First Name,Last Name,Email,Phone,Source');
 
-                if (response.ok || response.status === 200) {
-                    // Success
+                const airtableUrl = `https://airtable.com/${AIRTABLE_BASE_ID}/${AIRTABLE_FORM_ID}?${params.toString()}`;
+
+                // Open in hidden iframe to auto-submit
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = airtableUrl;
+                document.body.appendChild(iframe);
+
+                // Wait a moment for submission
+                setTimeout(() => {
+                    document.body.removeChild(iframe);
                     showMessage('🎉 Welcome to the waitlist! Check your email for next steps.', 'success');
                     waitlistForm.reset();
 
@@ -950,31 +952,18 @@
                     setTimeout(() => {
                         closeModal();
                     }, 3000);
-                } else {
-                    // Error
-                    console.error('Response status:', response.status);
-                    showMessage('Something went wrong. Please try again or contact support.', 'error');
-                }
+                }, 1500);
+
             } catch (error) {
                 // Network or other error
                 console.error('Submission error:', error);
-
-                // Check if it's a CORS error (which often means success with Airtable forms)
-                if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-                    // Likely a CORS issue, but form probably submitted successfully
-                    showMessage('🎉 Welcome to the waitlist! Check your email for next steps.', 'success');
-                    waitlistForm.reset();
-
-                    setTimeout(() => {
-                        closeModal();
-                    }, 3000);
-                } else {
-                    showMessage('Network error. Please check your connection and try again.', 'error');
-                }
+                showMessage('Network error. Please check your connection and try again.', 'error');
             } finally {
-                // Re-enable submit button
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Join Waitlist';
+                // Re-enable submit button after a delay
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Join Waitlist';
+                }, 2000);
             }
         });
 
