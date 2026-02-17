@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FIGHT CVMP - Build the Body. Build the Mind. Build the Standard.</title>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
     <style>
         * {
             margin: 0;
@@ -15,11 +27,44 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #000000;
-            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            background: #000000;
+            color: #FFFFFF;
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.7;
+        }
+
+        /* Cinematic Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #111111 0%, #000000 100%);
+            z-index: -2;
+        }
+
+        /* Fog/Mist Overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 30%, rgba(255,255,255,0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            animation: fogDrift 20s ease-in-out infinite;
+        }
+
+        @keyframes fogDrift {
+            0%, 100% { opacity: 0.3; transform: translateY(0); }
+            50% { opacity: 0.5; transform: translateY(-20px); }
         }
 
         /* Hero Section */
@@ -35,65 +80,53 @@
             overflow: hidden;
         }
 
-        .hero::before {
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+        }
+
+        .hero-bg-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4) contrast(1.5) saturate(1.2) grayscale(0.3);
+            transition: all 0.5s ease;
+        }
+
+        .hero-bg-image:hover {
+            filter: brightness(0.6) contrast(1.6) saturate(1.3) grayscale(0.1);
+            transform: scale(1.05);
+        }
+
+        .hero-background::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.9) 100%);
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.85) 100%);
             z-index: 1;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2px;
-            z-index: 0;
-        }
-
-        .hero-bg-item {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            filter: brightness(0.6) contrast(1.3);
-            transition: filter 0.5s ease;
-        }
-
-        .hero-bg-item:hover {
-            filter: brightness(0.8) contrast(1.4);
-        }
-
-        .hero-bg-item:nth-child(1) {
-            background-image: url('https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800&q=80');
-        }
-
-        .hero-bg-item:nth-child(2) {
-            background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80');
-        }
-
-        .hero-bg-item:nth-child(3) {
-            background-image: url('https://images.unsplash.com/photo-1550345332-09e3ac987658?w=800&q=80');
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
             max-width: 1200px;
-            animation: fadeInUp 1s ease-out;
+            animation: fadeInUp 1.2s ease-out;
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -102,195 +135,396 @@
         }
 
         .logo {
-            font-size: 48px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 56px;
             font-weight: 900;
-            letter-spacing: 4px;
+            letter-spacing: 6px;
             margin-bottom: 3rem;
-            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+            text-shadow:
+                0 0 30px rgba(255,255,255,0.4),
+                0 0 60px rgba(204,0,0,0.3);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 30px rgba(255,255,255,0.4), 0 0 60px rgba(204,0,0,0.3); }
+            50% { text-shadow: 0 0 40px rgba(255,255,255,0.6), 0 0 80px rgba(204,0,0,0.5); }
         }
 
         .hero-title {
-            font-size: 64px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 68px;
             font-weight: 900;
             line-height: 1.2;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            margin-bottom: 2rem;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.9);
+            background: linear-gradient(135deg, #FFFFFF 0%, #CCCCCC 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-subtitle {
-            font-size: 22px;
-            font-weight: 400;
-            color: #e0e0e0;
+            font-size: 24px;
+            font-weight: 300;
+            color: #CCCCCC;
             margin-bottom: 1.5rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-            line-height: 1.7;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.9);
         }
 
         .hero-tagline {
-            font-size: 20px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 2.5rem;
-            letter-spacing: 2px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 3rem;
+            color: #FFFFFF;
         }
 
+        /* CTA Button */
         .cta-button {
             display: inline-block;
-            padding: 1.3rem 3rem;
-            background: #8B0000;
-            color: #ffffff;
+            padding: 1.5rem 4rem;
+            background: linear-gradient(135deg, #990000 0%, #CC0000 100%);
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
             font-size: 18px;
             font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             text-decoration: none;
-            border-radius: 6px;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.4);
-            margin-bottom: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow:
+                0 8px 25px rgba(153,0,0,0.4),
+                0 0 40px rgba(204,0,0,0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .cta-button:hover {
-            background: #660000;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(139, 0, 0, 0.6);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow:
+                0 12px 35px rgba(153,0,0,0.6),
+                0 0 60px rgba(204,0,0,0.5);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px) scale(1.02);
         }
 
         .cta-small-text {
-            font-size: 13px;
-            color: #cccccc;
+            font-size: 14px;
+            color: #CCCCCC;
             font-style: italic;
+            margin-top: 1rem;
+        }
+
+        .scarcity-text {
+            font-size: 13px;
+            color: #FFFFFF;
+            font-style: italic;
+            margin-top: 1.5rem;
+            opacity: 0.9;
         }
 
         /* Content Sections */
         .section {
-            padding: 6rem 2rem;
-            max-width: 1200px;
+            padding: 8rem 2rem;
+            max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section-dark {
-            background: #000000;
+            background: transparent;
         }
 
-        .section-darker {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        .section-emphasis {
+            background: linear-gradient(135deg, rgba(17,17,17,0.5) 0%, rgba(0,0,0,0.8) 100%);
+            border-left: 4px solid #CC0000;
+            border-radius: 8px;
+            padding: 4rem 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
 
         .section-title {
-            font-size: 42px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 48px;
             font-weight: 700;
-            margin-bottom: 2rem;
-            line-height: 1.3;
+            margin-bottom: 2.5rem;
+            color: #FFFFFF;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.8);
         }
 
         .section-text {
             font-size: 20px;
             line-height: 1.8;
-            color: #e0e0e0;
+            color: #CCCCCC;
             margin-bottom: 1.5rem;
         }
 
         .section-text strong {
-            color: #ffffff;
+            color: #FFFFFF;
             font-weight: 700;
         }
 
+        .section-text-large {
+            font-size: 36px;
+            line-height: 1.5;
+            font-weight: 300;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        /* Bullet Lists */
         .bullet-list {
             list-style: none;
-            margin: 2rem 0;
+            margin: 2.5rem 0;
         }
 
         .bullet-list li {
             font-size: 20px;
-            color: #e0e0e0;
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
+            color: #CCCCCC;
+            margin-bottom: 1.2rem;
+            padding-left: 2rem;
             position: relative;
+            transition: all 0.3s ease;
         }
 
         .bullet-list li::before {
-            content: '•';
+            content: '■';
             position: absolute;
             left: 0;
-            color: #8B0000;
-            font-weight: 900;
-            font-size: 24px;
+            color: #CC0000;
+            font-size: 14px;
+            top: 8px;
         }
 
+        .bullet-list li:hover {
+            color: #FFFFFF;
+            transform: translateX(10px);
+        }
+
+        /* Highlight Text */
         .highlight-text {
-            font-size: 28px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
             font-weight: 700;
-            color: #ffffff;
-            margin: 2rem 0;
-            line-height: 1.5;
-        }
-
-        .tagline-block {
+            color: #FFFFFF;
+            margin: 2.5rem 0;
+            line-height: 1.4;
             text-align: center;
-            padding: 4rem 2rem;
-            background: rgba(139, 0, 0, 0.1);
-            border-left: 4px solid #8B0000;
-            margin: 3rem 0;
         }
 
-        .tagline-block p {
-            font-size: 24px;
-            line-height: 1.8;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
+        /* Three Pillars Enhanced */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin: 4rem 0;
         }
 
-        /* Women Section */
-        .women-section {
+        .pillar-card {
+            background: linear-gradient(135deg, rgba(34,34,34,0.9) 0%, rgba(17,17,17,0.95) 100%);
+            border: 1px solid rgba(204,0,0,0.2);
+            border-radius: 12px;
+            padding: 3rem;
             position: relative;
-            padding: 6rem 2rem;
             overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .women-section::before {
+        .pillar-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(139, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.95) 100%);
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #CC0000, #990000);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .pillar-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            border-color: #CC0000;
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.7),
+                0 0 30px rgba(204,0,0,0.3);
+        }
+
+        .pillar-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #CC0000, #990000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 5px 20px rgba(204,0,0,0.4);
+        }
+
+        .pillar-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #CC0000;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .pillar-subtitle {
+            font-size: 13px;
+            color: #999999;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        /* Tagline Blocks */
+        .tagline-block {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(153,0,0,0.1);
+            border-left: 4px solid #CC0000;
+            border-right: 4px solid #CC0000;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tagline-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(204,0,0,0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .tagline-block p {
+            font-size: 26px;
+            line-height: 1.8;
+            color: #FFFFFF;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Women Section with Dramatic Images */
+        .women-section {
+            position: relative;
+            padding: 8rem 2rem;
+            overflow: hidden;
+            margin: 4rem 0;
+        }
+
+        .women-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
             z-index: 0;
+        }
+
+        .women-bg-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.35) contrast(1.6) saturate(1.3);
+            transition: all 0.5s ease;
+        }
+
+        .women-bg-image:hover {
+            filter: brightness(0.5) contrast(1.7) saturate(1.4);
+        }
+
+        .women-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(204,0,0,0.2) 0%, rgba(0,0,0,0.9) 100%);
+            z-index: 1;
         }
 
         .women-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Final CTA Section */
-        .final-cta {
-            background: #000000;
-            padding: 6rem 2rem;
-            text-align: center;
-        }
-
-        .final-cta-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .benefits-list {
-            text-align: left;
-            max-width: 600px;
-            margin: 2rem auto 3rem;
-        }
-
-        .closing-text {
-            font-size: 18px;
-            color: #cccccc;
-            margin-top: 1.5rem;
+        /* Social Proof */
+        .social-proof {
             font-style: italic;
+            color: #999999;
+            font-size: 18px;
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            border-left: 3px solid #CC0000;
+            background: rgba(17,17,17,0.5);
         }
 
-        /* Modal Styles */
+        .social-proof-author {
+            color: #CC0000;
+            font-weight: 700;
+            margin-top: 1rem;
+            font-size: 14px;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -299,47 +533,43 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
             animation: fadeIn 0.3s ease;
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
         .modal.active {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 1rem;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            padding: 2rem;
         }
 
         .modal-content {
             background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
-            border: 1px solid rgba(139, 0, 0, 0.3);
-            border-radius: 12px;
-            padding: 2.5rem 2rem;
-            max-width: 500px;
+            border: 2px solid #CC0000;
+            border-radius: 16px;
+            padding: 3rem;
+            max-width: 550px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(139, 0, 0, 0.3);
             position: relative;
-            animation: slideUp 0.3s ease;
-            margin: auto;
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.8),
+                0 0 50px rgba(204,0,0,0.3);
+            animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes slideUp {
+        @keyframes scaleIn {
             from {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: scale(0.8);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: scale(1);
             }
         }
 
@@ -347,50 +577,61 @@
             position: absolute;
             top: 1.5rem;
             right: 1.5rem;
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
-            color: #888888;
+            color: #999999;
             cursor: pointer;
-            transition: color 0.3s ease;
             background: none;
             border: none;
+            transition: all 0.3s ease;
             line-height: 1;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
 
         .modal-close:hover {
-            color: #ffffff;
+            color: #FFFFFF;
+            background: rgba(204,0,0,0.2);
+            transform: rotate(90deg);
         }
 
         .modal-title {
+            font-family: 'Montserrat', sans-serif;
             font-size: 32px;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: #ffffff;
+            color: #FFFFFF;
+            text-align: center;
         }
 
         .modal-subtitle {
             font-size: 16px;
-            color: #cccccc;
-            margin-bottom: 2rem;
+            color: #CCCCCC;
+            text-align: center;
+            margin-bottom: 2.5rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
 
         .form-label {
             display: block;
             font-size: 14px;
             font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
+            color: #FFFFFF;
+            margin-bottom: 0.6rem;
         }
 
-        .form-label .required {
-            color: #8B0000;
+        .required {
+            color: #CC0000;
         }
 
-        .form-label .optional {
+        .optional {
             color: #888888;
             font-weight: 400;
             font-size: 12px;
@@ -398,47 +639,48 @@
 
         .form-control {
             width: 100%;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 6px;
-            color: #ffffff;
+            padding: 1.1rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(204,0,0,0.3);
+            border-radius: 8px;
+            color: #FFFFFF;
             font-size: 16px;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Roboto', sans-serif;
             transition: all 0.3s ease;
         }
 
         .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255,255,255,0.4);
         }
 
         .form-control:focus {
             outline: none;
-            border-color: #8B0000;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+            border-color: #CC0000;
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 0 3px rgba(204,0,0,0.1);
         }
 
         .submit-button {
             width: 100%;
-            padding: 1.2rem;
-            background: #8B0000;
+            padding: 1.3rem;
+            background: linear-gradient(135deg, #990000, #CC0000);
             border: none;
-            border-radius: 6px;
-            color: #ffffff;
+            border-radius: 8px;
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
             font-size: 16px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             cursor: pointer;
             text-transform: uppercase;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.4);
+            box-shadow: 0 8px 25px rgba(153,0,0,0.4);
         }
 
         .submit-button:hover:not(:disabled) {
-            background: #660000;
+            background: linear-gradient(135deg, #CC0000, #990000);
             transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(139, 0, 0, 0.6);
+            box-shadow: 0 12px 35px rgba(153,0,0,0.6);
         }
 
         .submit-button:disabled {
@@ -446,45 +688,60 @@
             cursor: not-allowed;
         }
 
+        .form-security {
+            text-align: center;
+            font-size: 12px;
+            color: #888888;
+            margin-top: 1.2rem;
+        }
+
         .form-message {
-            margin-top: 1rem;
-            padding: 1rem;
-            border-radius: 6px;
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            border-radius: 8px;
             font-size: 14px;
             text-align: center;
             display: none;
         }
 
         .form-message.success {
-            background: rgba(0, 255, 0, 0.1);
-            border: 1px solid rgba(0, 255, 0, 0.3);
+            background: rgba(0,255,0,0.1);
+            border: 1px solid rgba(0,255,0,0.3);
             color: #00ff00;
             display: block;
         }
 
         .form-message.error {
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid rgba(255, 0, 0, 0.3);
+            background: rgba(255,0,0,0.1);
+            border: 1px solid rgba(255,0,0,0.3);
             color: #ff6b6b;
             display: block;
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .pillars-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-background,
+            .women-background {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 38px;
+                font-size: 42px;
             }
 
             .hero-subtitle {
                 font-size: 18px;
             }
 
-            .hero-tagline {
-                font-size: 16px;
-            }
-
             .logo {
-                font-size: 32px;
+                font-size: 36px;
             }
 
             .section {
@@ -492,57 +749,33 @@
             }
 
             .section-title {
-                font-size: 28px;
+                font-size: 32px;
             }
 
-            .section-text {
-                font-size: 16px;
+            .section-text,
+            .bullet-list li {
+                font-size: 18px;
             }
 
             .highlight-text {
-                font-size: 20px;
+                font-size: 24px;
             }
 
-            .bullet-list li {
-                font-size: 16px;
-            }
-
-            .hero-bg {
-                grid-template-columns: 1fr;
+            .section-text-large {
+                font-size: 26px;
             }
 
             .cta-button {
-                padding: 1.1rem 2rem;
+                padding: 1.2rem 2.5rem;
                 font-size: 16px;
-            }
-
-            .modal {
-                padding: 0.5rem;
-                align-items: flex-start;
             }
 
             .modal-content {
                 padding: 2rem 1.5rem;
-                margin: 1rem auto;
-                max-height: 95vh;
-                width: 95%;
             }
 
             .modal-title {
                 font-size: 26px;
-            }
-
-            .modal-subtitle {
-                font-size: 14px;
-            }
-
-            .form-control {
-                font-size: 16px;
-                padding: 0.9rem;
-            }
-
-            .tagline-block {
-                padding: 3rem 1.5rem;
             }
 
             .tagline-block p {
@@ -550,86 +783,56 @@
             }
         }
 
-        /* Extra small devices */
         @media (max-width: 480px) {
             .hero-title {
                 font-size: 32px;
             }
 
-            .hero-subtitle {
-                font-size: 16px;
-            }
-
             .logo {
                 font-size: 28px;
-                letter-spacing: 2px;
+                letter-spacing: 3px;
             }
 
             .section-title {
-                font-size: 24px;
+                font-size: 26px;
             }
 
             .modal-content {
                 padding: 1.5rem 1rem;
             }
-
-            .modal-title {
-                font-size: 22px;
-            }
-
-            .form-group {
-                margin-bottom: 1.2rem;
-            }
         }
 
-        /* Landscape mobile */
-        @media (max-width: 768px) and (orientation: landscape) {
-            .modal {
-                align-items: flex-start;
-            }
-
-            .modal-content {
-                margin: 1rem auto;
-            }
-        }
-
-        /* Large desktop */
-        @media (min-width: 1920px) {
-            .section {
-                max-width: 1400px;
-            }
-
-            .hero-title {
-                font-size: 80px;
-            }
-
-            .section-title {
-                font-size: 48px;
-            }
+        /* Parallax Effect */
+        .parallax-section {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
     </style>
 </head>
 <body>
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-bg">
-            <div class="hero-bg-item" role="img" aria-label="Muscular man in fighting pose"></div>
-            <div class="hero-bg-item" role="img" aria-label="Hooded man looking intense"></div>
-            <div class="hero-bg-item" role="img" aria-label="Woman in boxing stance"></div>
+        <div class="hero-background">
+            <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800&q=80" alt="Muscular man in fighting crouch" class="hero-bg-image">
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80" alt="Hooded fighter intense pose" class="hero-bg-image">
+            <img src="https://images.unsplash.com/photo-1550345332-09e3ac987658?w=800&q=80" alt="Woman throwing powerful punch" class="hero-bg-image">
         </div>
         <div class="hero-content">
             <div class="logo">FIGHT CVMP</div>
             <h1 class="hero-title">Build the Body. Build the Mind. Build the Standard.</h1>
             <p class="hero-subtitle">A private training platform for fighters, athletes, and high-level humans who refuse average.</p>
             <p class="hero-tagline">Strength. Structure. Discipline. Direction.</p>
-            <a href="#waitlist" class="cta-button">→ Join the Private Waitlist</a>
+            <button class="cta-button" onclick="openModal()">REQUEST FOUNDING ACCESS</button>
             <p class="cta-small-text">Founding members get lifetime preferred pricing.</p>
+            <p class="scarcity-text">Limited founding group—lifetime lower rates. Don't miss out.</p>
         </div>
     </section>
 
-    <!-- Section 1: What This Is -->
-    <section class="section section-dark">
-        <p class="section-text">Most people train for aesthetics.<br>
+    <!-- Identity Training Section -->
+    <section class="section section-dark visible">
+        <p class="section-text-large">Most people train for aesthetics.<br>
         Some train for performance.<br>
         <strong>Very few train for identity.</strong></p>
 
@@ -648,10 +851,15 @@
 
         <p class="highlight-text">You don't just look different.</p>
         <p class="highlight-text">You operate different.</p>
+
+        <div class="social-proof">
+            "Transformed my fight game—real protocols, no fluff. This is what structured training looks like."
+            <div class="social-proof-author">— Pro Fighter X</div>
+        </div>
     </section>
 
-    <!-- Section 2: Who It's For -->
-    <section class="section section-darker">
+    <!-- Who It's For Section -->
+    <section class="section">
         <h2 class="section-title">This is for:</h2>
 
         <ul class="bullet-list">
@@ -668,19 +876,42 @@
         </div>
     </section>
 
-    <!-- Section 3: What You Get -->
-    <section class="section section-dark">
+    <!-- Three Pillars Section -->
+    <section class="section">
         <h2 class="section-title">Inside FIGHT CVMP:</h2>
 
-        <ul class="bullet-list">
-            <li>Structured strength & physique programs</li>
-            <li>Performance-based training blocks</li>
-            <li>Nervous system control protocols</li>
-            <li>Confidence + composure training</li>
-            <li>Community of disciplined people</li>
-            <li>Exclusive challenges</li>
-            <li>The Center Within (premium add-on program)</li>
-        </ul>
+        <div class="pillars-grid">
+            <div class="pillar-card">
+                <div class="pillar-icon">⚡</div>
+                <h3 class="pillar-title">STATE CONTROL</h3>
+                <p class="pillar-subtitle">Like staying calm mid-round</p>
+                <ul class="bullet-list">
+                    <li>Nervous system control protocols</li>
+                    <li>Confidence + composure training</li>
+                </ul>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-icon">🎯</div>
+                <h3 class="pillar-title">STRUCTURE</h3>
+                <p class="pillar-subtitle">Protocols that hold</p>
+                <ul class="bullet-list">
+                    <li>Structured strength & physique programs</li>
+                    <li>Performance-based training blocks</li>
+                </ul>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-icon">🔥</div>
+                <h3 class="pillar-title">CAPACITY EXPANSION</h3>
+                <p class="pillar-subtitle">Built to last</p>
+                <ul class="bullet-list">
+                    <li>Community of disciplined people</li>
+                    <li>Exclusive challenges</li>
+                    <li>The Center Within (premium add-on program)</li>
+                </ul>
+            </div>
+        </div>
 
         <div class="tagline-block">
             <p>No guesswork.</p>
@@ -690,8 +921,12 @@
         </div>
     </section>
 
-    <!-- Section 4: For Women -->
+    <!-- Women's Section -->
     <section class="women-section">
+        <div class="women-background">
+            <img src="https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=800&q=80" alt="Woman lifting weights with determination" class="women-bg-image">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80" alt="Woman in powerful action pose" class="women-bg-image">
+        </div>
         <div class="women-content">
             <h2 class="section-title">You don't need "soft" fitness.</h2>
 
@@ -707,7 +942,7 @@
 
             <p class="highlight-text">You won't bulk up.</p>
 
-            <p class="section-text">You'll tighten.<br>
+            <p class="section-text-large">You'll tighten.<br>
             You'll strengthen.<br>
             You'll feel powerful.</p>
 
@@ -718,8 +953,8 @@
         </div>
     </section>
 
-    <!-- Section 5: Why Now -->
-    <section class="section section-darker">
+    <!-- Why Now Section -->
+    <section class="section">
         <h2 class="section-title">You don't need another year of:</h2>
 
         <ul class="bullet-list">
@@ -740,13 +975,13 @@
     </section>
 
     <!-- Final CTA Section -->
-    <section class="final-cta" id="waitlist">
-        <div class="final-cta-content">
+    <section class="section">
+        <div class="section-emphasis">
             <h2 class="section-title">We're opening with a limited founding group.</h2>
 
             <p class="section-text">Early members get:</p>
 
-            <ul class="bullet-list benefits-list">
+            <ul class="bullet-list">
                 <li>Lifetime lower rate</li>
                 <li>Direct access to program drops</li>
                 <li>Early access to new challenges</li>
@@ -755,9 +990,11 @@
 
             <p class="highlight-text">Spots will be capped.</p>
 
-            <a href="#" class="cta-button" id="openModalBtn">→ Join the Private Waitlist</a>
+            <div style="text-align: center; margin: 3rem 0;">
+                <button class="cta-button" onclick="openModal()">REQUEST FOUNDING ACCESS</button>
+            </div>
 
-            <p class="closing-text">This is not for everyone.<br>
+            <p class="section-text-large" style="font-size: 20px; font-style: italic;">This is not for everyone.<br>
             But if you feel it — you already know.</p>
         </div>
     </section>
@@ -765,11 +1002,11 @@
     <!-- Waitlist Modal -->
     <div id="waitlistModal" class="modal">
         <div class="modal-content">
-            <button class="modal-close" id="closeModal">&times;</button>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
             <h2 class="modal-title">Join the Founding Waitlist</h2>
             <p class="modal-subtitle">Secure your spot and lock in lifetime preferred pricing.</p>
 
-            <form id="waitlistForm">
+            <form id="waitlistForm" onsubmit="return false;">
                 <div class="form-group">
                     <label class="form-label" for="firstName">
                         First Name <span class="required">*</span>
@@ -779,7 +1016,7 @@
                         id="firstName"
                         name="firstName"
                         class="form-control"
-                        placeholder="Enter your first name"
+                        placeholder="Name"
                         autocomplete="given-name"
                         required
                     >
@@ -794,7 +1031,7 @@
                         id="lastName"
                         name="lastName"
                         class="form-control"
-                        placeholder="Enter your last name"
+                        placeholder="Name"
                         autocomplete="family-name"
                         required
                     >
@@ -809,7 +1046,7 @@
                         id="email"
                         name="email"
                         class="form-control"
-                        placeholder="your.email@example.com"
+                        placeholder="Email"
                         autocomplete="email"
                         required
                     >
@@ -827,13 +1064,14 @@
                         placeholder="e.g., +1 555-123-4567"
                         autocomplete="tel"
                         pattern="[\d\s\-\+\(\)\.]*"
-                        title="Please enter a valid phone number (international format accepted)"
                     >
                 </div>
 
-                <button type="submit" class="submit-button" id="submitBtn">
-                    Join Waitlist
+                <button type="submit" class="submit-button" id="submitBtn" onclick="submitForm()">
+                    Request Founding Access
                 </button>
+
+                <p class="form-security">100% Secure. No Spam Ever.</p>
 
                 <div id="formMessage" class="form-message"></div>
             </form>
@@ -841,85 +1079,57 @@
     </div>
 
     <script>
-        // ========================================
-        // API CONFIGURATION
-        // ========================================
-        // Serverless function endpoint (secure - no API keys exposed!)
+        // API Configuration
         const API_ENDPOINT = '/api/submit-waitlist';
 
-        // ========================================
-        // MODAL FUNCTIONALITY
-        // ========================================
-        const modal = document.getElementById('waitlistModal');
-        const openModalBtns = document.querySelectorAll('.cta-button');
-        const closeModalBtn = document.getElementById('closeModal');
-        const waitlistForm = document.getElementById('waitlistForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const formMessage = document.getElementById('formMessage');
-
-        // Open modal when any CTA button is clicked
-        openModalBtns.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Prevent background scroll
-            });
-        });
-
-        // Close modal
-        function closeModal() {
-            modal.classList.remove('active');
-            document.body.style.overflow = ''; // Restore scroll
-            waitlistForm.reset();
-            formMessage.style.display = 'none';
+        // Modal Functions
+        function openModal() {
+            const modal = document.getElementById('waitlistModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
-        closeModalBtn.addEventListener('click', closeModal);
+        function closeModal() {
+            const modal = document.getElementById('waitlistModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            document.getElementById('waitlistForm').reset();
+            document.getElementById('formMessage').style.display = 'none';
+        }
 
-        // Prevent modal content clicks from bubbling
-        const modalContent = document.querySelector('.modal-content');
-        modalContent.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-
-        // Close modal when clicking outside (on backdrop)
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
+        // Close modal on backdrop click
+        document.getElementById('waitlistModal').addEventListener('click', function(e) {
+            if (e.target === this) {
                 closeModal();
             }
         });
 
-        // Close modal with Escape key
+        // Close modal on Escape key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
+            if (e.key === 'Escape') {
                 closeModal();
             }
         });
 
-        // ========================================
-        // FORM SUBMISSION & WEBHOOK INTEGRATION
-        // ========================================
-        waitlistForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
+        // Form Submission
+        async function submitForm() {
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
 
-            // Get form data
             const firstName = document.getElementById('firstName').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
 
-            // Basic validation
             if (!firstName || !lastName || !email) {
                 showMessage('Please fill in all required fields.', 'error');
                 return;
             }
 
-            // Disable submit button
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
 
             try {
-                // Call secure serverless function (no API keys exposed!)
                 const response = await fetch(API_ENDPOINT, {
                     method: 'POST',
                     headers: {
@@ -936,77 +1146,58 @@
                 const data = await response.json();
 
                 if (response.ok && data.success) {
-                    console.log('Success:', data);
                     showMessage('🎉 Welcome to the waitlist! Check your email for next steps.', 'success');
-                    waitlistForm.reset();
+                    document.getElementById('waitlistForm').reset();
 
-                    // Close modal after 3 seconds
                     setTimeout(() => {
                         closeModal();
                     }, 3000);
                 } else {
-                    console.error('Submission error:', data);
-                    showMessage(data.error || 'Something went wrong. Please try again or contact support.', 'error');
+                    showMessage(data.error || 'Something went wrong. Please try again.', 'error');
                 }
-
             } catch (error) {
-                // Network or other error
                 console.error('Submission error:', error);
                 showMessage('Network error. Please check your connection and try again.', 'error');
             } finally {
-                // Re-enable submit button
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Join Waitlist';
+                submitBtn.textContent = 'Request Founding Access';
             }
-        });
+        }
 
-        // Show message helper
         function showMessage(message, type) {
+            const formMessage = document.getElementById('formMessage');
             formMessage.textContent = message;
             formMessage.className = `form-message ${type}`;
             formMessage.style.display = 'block';
         }
 
-        // ========================================
-        // SMOOTH SCROLL FOR ANCHOR LINKS
-        // ========================================
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href === '#' || this.classList.contains('cta-button')) {
-                    return; // Let modal handler take over for CTA buttons
-                }
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // ========================================
-        // INTERSECTION OBSERVER FOR ANIMATIONS
-        // ========================================
+        // Scroll Animations
         const observerOptions = {
-            threshold: 0.1,
+            threshold: 0.15,
             rootMargin: '0px 0px -100px 0px'
         };
 
         const observer = new IntersectionObserver(function(entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
                 }
             });
         }, observerOptions);
 
-        // Observe sections for animations
-        document.querySelectorAll('section').forEach(section => {
+        document.querySelectorAll('.section').forEach(section => {
             observer.observe(section);
+        });
+
+        // Parallax Effect (subtle)
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.hero-background, .women-background');
+
+            parallaxElements.forEach(el => {
+                const speed = 0.5;
+                el.style.transform = `translateY(${scrolled * speed}px)`;
+            });
         });
     </script>
 </body>
