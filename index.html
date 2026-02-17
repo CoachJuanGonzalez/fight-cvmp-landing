@@ -923,16 +923,18 @@
                 // Build Airtable prefilled form URL
                 // This is the most reliable way to submit to Airtable forms
                 const params = new URLSearchParams();
-                params.append('prefill_First Name', firstName);
-                params.append('prefill_Last Name', lastName);
-                params.append('prefill_Email', email);
+                params.append('prefill_first_name', firstName);
+                params.append('prefill_last_name', lastName);
+                params.append('prefill_email', email);
                 if (phone) {
-                    params.append('prefill_Phone', phone);
+                    params.append('prefill_phone', phone);
                 }
-                params.append('prefill_Source', 'fightcvmplandingpage');
+                // Note: Make sure you have a 'source' field in Airtable for tracking
+                // If you don't have this field, it will be ignored (won't break submission)
+                params.append('prefill_source', 'fightcvmplandingpage');
 
                 // Auto-submit by adding hide parameter
-                params.append('hide', 'First Name,Last Name,Email,Phone,Source');
+                params.append('hide', 'first_name,last_name,email,phone,source');
 
                 const airtableUrl = `https://airtable.com/${AIRTABLE_BASE_ID}/${AIRTABLE_FORM_ID}?${params.toString()}`;
 
