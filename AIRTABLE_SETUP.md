@@ -19,16 +19,19 @@
 
 1. In your new base, rename the default table to: **`Waitlist`**
 2. Airtable will create a default "Name" field - rename it to **`First Name`**
-3. Add three more fields by clicking the **"+"** icon:
+3. Add four more fields by clicking the **"+"** icon:
 
-| Field Name | Field Type | Required? |
-|------------|------------|-----------|
-| First Name | Single line text | Yes (already exists) |
-| Last Name | Single line text | Yes |
-| Email | Email | Yes |
-| Phone | Phone number | No |
+| Field Name | Field Type | Required? | Notes |
+|------------|------------|-----------|-------|
+| First Name | Single line text | Yes (already exists) | |
+| Last Name | Single line text | Yes | |
+| Email | Email | Yes | |
+| Phone | Phone number | No | Optional field |
+| Source | Single line text | No | Auto-populated with 'fightcvmplandingpage' |
 
-That's it! Airtable will automatically add timestamps when records are created.
+**Note:** The `Source` field will automatically be populated with the value `fightcvmplandingpage` for every submission from the landing page. This helps you track where your leads are coming from if you have multiple lead sources in the future.
+
+Airtable will automatically add timestamps when records are created.
 
 ## Step 3: Create an Airtable Form
 
@@ -53,6 +56,11 @@ That's it! Airtable will automatically add timestamps when records are created.
 4. **Phone**:
    - Toggle **"Required"** to OFF (optional field)
    - Description: Leave blank
+
+5. **Source**:
+   - Toggle **"Required"** to OFF
+   - Description: Leave blank
+   - **Note:** This field will be auto-filled by the landing page with 'fightcvmplandingpage'
 
 4. Click **"Settings"** (gear icon) and configure:
    - **After submit**: Select "Show custom message"
@@ -133,6 +141,7 @@ Airtable forms redirect after submission, which can trigger CORS errors in JavaS
      - `Last Name` (not `lastName` or `LastName`)
      - `Email` (not `email`)
      - `Phone` (not `phone`)
+     - `Source` (auto-populated, should match exactly)
 
 3. **Check browser console**:
    - Press F12 → Console tab
@@ -218,6 +227,12 @@ A: Yes! Airtable lets you export to CSV/Excel anytime.
 
 **Q: What if I want to add more fields?**
 A: Add them to your Airtable table, add them to the form, then update the JavaScript in `index.html` to include the new fields in the FormData.
+
+**Q: Why do I need a 'Source' field?**
+A: The Source field helps you track where leads are coming from. If you later add other lead sources (ads, social media, referrals), you can filter and segment your leads in Airtable based on their source. The landing page automatically sends 'fightcvmplandingpage' so you always know these leads came from your waitlist page.
+
+**Q: Can I change the Source value?**
+A: Yes! In `index.html` (around line 530), you can change `'fightcvmplandingpage'` to any value you want. Just make sure it matches what you want to see in Airtable.
 
 ---
 

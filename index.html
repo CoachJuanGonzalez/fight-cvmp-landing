@@ -815,6 +815,8 @@
                 if (phone) {
                     formData.append('Phone', phone);
                 }
+                // Add source field to track where the lead came from
+                formData.append('Source', 'fightcvmplandingpage');
 
                 // Send to Airtable Form webhook
                 const response = await fetch(WEBHOOK_URL, {
