@@ -844,8 +844,9 @@
         // ========================================
         // WEBHOOK CONFIGURATION
         // ========================================
-        // Airtable Form webhook URL - form submissions will be sent here
-        const WEBHOOK_URL = 'https://airtable.com/appzHfJJ3mm9MvOyr/pagu1KzL63b2oz8Bq/form';
+        // Airtable Form share ID - extracted from your form URL
+        const AIRTABLE_SHARE_ID = 'pagu1KzL63b2oz8Bq';
+        const WEBHOOK_URL = `https://airtable.com/v0.3/view/${AIRTABLE_SHARE_ID}/submitSharedForm`;
 
         // ========================================
         // MODAL FUNCTIONALITY
@@ -919,8 +920,8 @@
             submitBtn.textContent = 'Submitting...';
 
             try {
-                // Prepare form data
-                const formData = new FormData();
+                // Prepare form data in Airtable's expected format
+                const formData = new URLSearchParams();
                 formData.append('First Name', firstName);
                 formData.append('Last Name', lastName);
                 formData.append('Email', email);
@@ -933,11 +934,15 @@
                 // Send to Airtable Form webhook
                 const response = await fetch(WEBHOOK_URL, {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: formData.toString(),
+                    mode: 'cors'
                 });
 
-                if (response.ok || response.redirected) {
-                    // Success (Airtable forms redirect on success)
+                if (response.ok || response.status === 200) {
+                    // Success
                     showMessage('🎉 Welcome to the waitlist! Check your email for next steps.', 'success');
                     waitlistForm.reset();
 
@@ -947,6 +952,7 @@
                     }, 3000);
                 } else {
                     // Error
+                    console.error('Response status:', response.status);
                     showMessage('Something went wrong. Please try again or contact support.', 'error');
                 }
             } catch (error) {
