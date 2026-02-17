@@ -18,12 +18,13 @@
 ## Step 2: Create the Waitlist Table
 
 1. In your new base, rename the default table to: **`Waitlist`**
-2. Airtable will create a default "Name" field - rename it to **`Full Name`**
-3. Add two more fields by clicking the **"+"** icon:
+2. Airtable will create a default "Name" field - rename it to **`First Name`**
+3. Add three more fields by clicking the **"+"** icon:
 
 | Field Name | Field Type | Required? |
 |------------|------------|-----------|
-| Full Name | Single line text | Yes (already exists) |
+| First Name | Single line text | Yes (already exists) |
+| Last Name | Single line text | Yes |
 | Email | Email | Yes |
 | Phone | Phone number | No |
 
@@ -37,15 +38,19 @@ That's it! Airtable will automatically add timestamps when records are created.
 
 ### Configure Your Form Fields:
 
-1. **Full Name**:
+1. **First Name**:
    - Toggle **"Required"** to ON
    - Description: Leave blank
 
-2. **Email**:
+2. **Last Name**:
    - Toggle **"Required"** to ON
    - Description: Leave blank
 
-3. **Phone**:
+3. **Email**:
+   - Toggle **"Required"** to ON
+   - Description: Leave blank
+
+4. **Phone**:
    - Toggle **"Required"** to OFF (optional field)
    - Description: Leave blank
 
@@ -94,7 +99,8 @@ const WEBHOOK_URL = 'https://airtable.com/app1234567890ABC/shr0987654321XYZ';
 1. Save `index.html` and open it in a browser
 2. Click **"Join the Private Waitlist"**
 3. Fill in the form:
-   - Full Name: `Test User`
+   - First Name: `Test`
+   - Last Name: `User`
    - Email: `test@example.com`
    - Phone: `555-123-4567` (optional)
 4. Click **"Join Waitlist"**
@@ -123,7 +129,8 @@ Airtable forms redirect after submission, which can trigger CORS errors in JavaS
 2. **Check field names match**:
    - Open the form in your JavaScript (around line 522)
    - Field names must match Airtable exactly (case-sensitive):
-     - `Full Name` (not `fullName` or `FullName`)
+     - `First Name` (not `firstName` or `FirstName`)
+     - `Last Name` (not `lastName` or `LastName`)
      - `Email` (not `email`)
      - `Phone` (not `phone`)
 
@@ -152,7 +159,7 @@ Want to get notified when someone joins?
    - **Action**: "Send email"
    - **To**: Your email address
    - **Subject**: "New FIGHT CVMP Waitlist Member!"
-   - **Message**: Include fields like `{Full Name}`, `{Email}`, `{Phone}`
+   - **Message**: Include fields like `{First Name}`, `{Last Name}`, `{Email}`, `{Phone}`
 
 ### Option 2: Slack Notifications (Free with Airtable Pro)
 1. Create automation as above

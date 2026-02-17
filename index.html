@@ -670,15 +670,29 @@
 
             <form id="waitlistForm">
                 <div class="form-group">
-                    <label class="form-label" for="fullName">
-                        Full Name <span class="required">*</span>
+                    <label class="form-label" for="firstName">
+                        First Name <span class="required">*</span>
                     </label>
                     <input
                         type="text"
-                        id="fullName"
-                        name="fullName"
+                        id="firstName"
+                        name="firstName"
                         class="form-control"
-                        placeholder="Enter your full name"
+                        placeholder="Enter your first name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="lastName">
+                        Last Name <span class="required">*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="lastName"
+                        name="lastName"
+                        class="form-control"
+                        placeholder="Enter your last name"
                         required
                     >
                 </div>
@@ -777,12 +791,13 @@
             e.preventDefault();
 
             // Get form data
-            const fullName = document.getElementById('fullName').value.trim();
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
 
             // Basic validation
-            if (!fullName || !email) {
+            if (!firstName || !lastName || !email) {
                 showMessage('Please fill in all required fields.', 'error');
                 return;
             }
@@ -794,7 +809,8 @@
             try {
                 // Prepare form data
                 const formData = new FormData();
-                formData.append('Full Name', fullName);
+                formData.append('First Name', firstName);
+                formData.append('Last Name', lastName);
                 formData.append('Email', email);
                 if (phone) {
                     formData.append('Phone', phone);
